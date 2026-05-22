@@ -8,4 +8,6 @@ RUN pip install jupyterlab plotly
 
 WORKDIR /workspace
 
-COPY notebooks/ /workspace/
+RUN chmod +x ${HOME}/binder/start
+
+CMD ["binder/start"]
