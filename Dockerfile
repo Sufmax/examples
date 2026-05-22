@@ -1,8 +1,11 @@
-FROM almondsh/almond:latest
+FROM python:3.10-slim
 
-USER root
-RUN apt-get update && apt-get install -y graphviz
-USER $NB_UID
-RUN jupyter labextension install @jupyterlab/plotly-extension
+RUN apt-get update && \
+    apt-get install -y graphviz && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY --chown=1000:100 notebooks/ $HOME
+RUN pip install jupyterlab plotly
+
+WORKDIR /workspace
+
+COPY notebooks/ /workspace/
